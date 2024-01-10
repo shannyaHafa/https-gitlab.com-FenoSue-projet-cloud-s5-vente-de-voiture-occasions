@@ -1,0 +1,15 @@
+classes\springboot\Utilisateur.class
+annotations\AnnotationClass.class
+connexion\Connexion.class
+outil\Outil.class
+annotations\AnnotationField.class
+classes\springboot\HttpRetour.class
+com\example\springboot\HelloController.class
+outil\Attribut.class
+token\springboot\TokenService.class
+annotations\AnnotationForeignKey.class
+com\example\springboot\Application.class
+dao\Dao.class
+outil\CurrentDateheure.class
+classes\springboot\Token.class
+services\springboot\ServiceUtilisateur.class
