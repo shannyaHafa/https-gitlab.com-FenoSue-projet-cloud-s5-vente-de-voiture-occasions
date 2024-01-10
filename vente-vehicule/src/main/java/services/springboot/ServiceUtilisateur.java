@@ -41,8 +41,7 @@ public class ServiceUtilisateur {
         }
         else if(resultat==false) {
             String[] data = new String[2];
-            data[0] = "Login obligatoire";
-            data[1] = "Passeword obligatoire";
+            data[0] = "Connection refused";
             h.setHttpRetour(h, 400, "Erreur", data);
         }
         return h;
