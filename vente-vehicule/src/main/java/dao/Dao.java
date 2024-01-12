@@ -408,6 +408,8 @@ public class Dao {
             condition = getAttributsNotNull(objectCondition);
             int tailleCondition = condition.size();
             requette+=getWhere(condition, null,true);
+            System.out.println("getWhere : "+getWhere(condition, null, true));
+            System.out.println("requette delete : "+requette);
             preparedStatement = connection.prepareStatement(requette);
             for(int i=0; i<tailleCondition; i++){
                 preparedStatement.setObject(i+1, condition.get(i).getValue());
