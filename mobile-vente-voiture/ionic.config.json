@@ -1,7 +1,0 @@
-{
-  "name": "mobile-vente-voiture",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react-vite"
-}
