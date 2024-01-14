@@ -20,7 +20,7 @@ public class Vitesse {
     @AnnotationField(attribut = "id")
     int id;
     @AnnotationField(attribut = "nom")
-    String boiteVitesse;
+    String nom;
 
     public Vitesse() {
     }
@@ -33,21 +33,20 @@ public class Vitesse {
         this.id = id;
     }
 
-    public String getBoiteVitesse() {
-        return boiteVitesse;
+    public String getNom() {
+        return nom;
     }
 
-    public void setBoiteVitesse(String boiteVitesse) {
-        this.boiteVitesse = boiteVitesse;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
-
     
     public void create(String boiteVitesse) throws Exception {
         Vitesse vitesse = new Vitesse();
         try(Connection connection = new Connexion().getConnection()) {
             connection.setAutoCommit(false);
             if(boiteVitesse!=null || boiteVitesse.equals("")==false) {
-                vitesse.setBoiteVitesse(boiteVitesse);
+                vitesse.setNom(boiteVitesse);
                 try {
                     dao().insert(vitesse, connection);
                     connection.commit();
@@ -75,7 +74,7 @@ public class Vitesse {
             if(idVitesse!=null || idVitesse.equals("")==false || newNomBoiteVitesse!=null || newNomBoiteVitesse.equals("")==false) {
                 idCat = Integer.parseInt(idVitesse);
                 vitesse.setId(idCat);
-                newVitesse.setBoiteVitesse(newNomBoiteVitesse);
+                newVitesse.setNom(newNomBoiteVitesse);
                 try {
                     dao().update(vitesse, newVitesse, connection);
                     connection.commit();

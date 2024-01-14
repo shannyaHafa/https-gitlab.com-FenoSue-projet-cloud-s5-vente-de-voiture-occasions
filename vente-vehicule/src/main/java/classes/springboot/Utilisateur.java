@@ -18,7 +18,7 @@ import java.sql.Connection;
 @AnnotationClass(table = "Utilisateur")
 public class Utilisateur {
     @AnnotationField(attribut = "id")
-    int id;
+    String id;
     @AnnotationField(attribut = "login")
     String login;
     @AnnotationField(attribut = "pwd")
@@ -35,11 +35,11 @@ public class Utilisateur {
         this.roles = roles;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,7 +67,7 @@ public class Utilisateur {
         this.roles = roles;
     }
     
-    public Utilisateur getById(int id) throws Exception {
+    public Utilisateur getById(String id) throws Exception {
         Utilisateur user = new Utilisateur();
         Utilisateur userId = new Utilisateur();
         Utilisateur[] listeUser = null;

@@ -175,7 +175,7 @@ public class ServiceElement {
     }
     
     
-    public HttpRetour insertModele(String idMarque, String nom) {
+    public HttpRetour insertModele(int idMarque, String nom) throws Exception {
         HttpRetour resultat = new HttpRetour();
         try {
             m2.create(idMarque, nom);
@@ -183,6 +183,7 @@ public class ServiceElement {
         }
         catch(Exception exception) {
             resultat.setHttpRetour(resultat, 400, "Erreur", null);
+            throw exception;
         }
         return resultat;
     }

@@ -6,6 +6,7 @@
 package com.example.springboot;
 
 import classes.springboot.HttpRetour;
+import classes.springboot.Modele;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -77,7 +78,7 @@ public class ElementController {
     
     
     @CrossOrigin(origins = "*")
-    @PostMapping("/InsertCrburant")
+    @PostMapping("/InsertCarburant")
     public ResponseEntity<HttpRetour> insertCrburant(@RequestBody String nomCarbutant) throws Exception {
         HttpRetour retour = s.insertCarburant(nomCarbutant);
         ResponseEntity<HttpRetour> insertion = new ResponseEntity<>(retour, HttpStatus.OK);
@@ -128,8 +129,8 @@ public class ElementController {
     
     @CrossOrigin(origins = "*")
     @PostMapping("/InsertModele")
-    public ResponseEntity<HttpRetour> insertModele(@RequestBody String idMarque, @RequestBody String nomModele) throws Exception {
-        HttpRetour retour = s.insertModele(idMarque, nomModele);
+    public ResponseEntity<HttpRetour> insertModele(@RequestBody Modele modele) throws Exception {
+        HttpRetour retour = s.insertModele(modele.getIdMarque(), modele.getNom());
         ResponseEntity<HttpRetour> insertion = new ResponseEntity<>(retour, HttpStatus.OK);
         return insertion;
     }

@@ -51,14 +51,12 @@ public class Modele {
         this.nom = nom;
     }
     
-    public void create(String idMarque, String nom) throws Exception {
+    public void create(int idMarque, String nom) throws Exception {
         Modele modele = new Modele();
-        int idMar = 0;
         try(Connection connection = new Connexion().getConnection()) {
             connection.setAutoCommit(false);
-            if(idMarque!=null || idMarque.equals("")==false || nom!=null || nom.equals("")==false) {
-                idMar = Integer.parseInt(idMarque);
-                modele.setIdMarque(idMar);
+            if(nom!=null || nom.equals("")==false) {
+                modele.setIdMarque(idMarque);
                 modele.setNom(nom);
                 try {
                     dao().insert(modele, connection);

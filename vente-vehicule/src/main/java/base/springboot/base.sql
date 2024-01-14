@@ -13,7 +13,7 @@ alter database VenteVehicule owner to projet;
 
 create sequence refUtilisateur;
 create table Utilisateur (
-    id integer default(nextval('refUtilisateur')) primary key,
+    id varchar default('User'||nextval('refUtilisateur')) primary key,
     login varchar unique not null,
     pwd varchar not null,
     roles varchar not null
@@ -26,7 +26,7 @@ insert into Utilisateur (login,pwd,roles) values
 create sequence refToken;
 create table Token (
     id integer default(nextval('refToken')) primary key,
-    utilisateur integer references Utilisateur (id),
+    utilisateur varchar references Utilisateur (id),
     token varchar unique,
     dateExpiration date
 );
@@ -64,7 +64,7 @@ create table Modele (
 
 create sequence refProduit;
 create table Produit (
-    id integer default(nextval('refDetailProduit')) primary key,
+    id varchar default('ref00'||nextval('refProduit')) primary key,
     idMarque integer references Marque (id),
     idModele integer references Modele (id),
     matricule varchar not null,
@@ -80,21 +80,41 @@ create table Produit (
 
 create sequence refPhotoProduit;
 create table PhotoProduit (
-    id integer default(nextval('refPhotoProduit')) primary key,
-    idProduit references Produit (id),
+    id varchar default('Photo'||nextval('refPhotoProduit')) primary key,
+    idProduit varchar references Produit (id),
     img varchar not null
 );
 
 create sequence refAnnonce;
 create table Annonce (
-    id integer default(nextval('refAnnonce')) primary key,
-    idProduit integer references Produit (id),
-    idUtilisateur integer references Utilisateur (id),
+    id varchar default('Annonce'||nextval('refAnnonce')) primary key,
+    idProduit varchar references Produit (id),
+    idUtilisateur varchar references Utilisateur (id),
     dateHeure timestamp default now(),
     description varchar,
-    status integer default -1,
+    statut integer default -1,
+    dateStatut timestamp default null,
     etat integer default -1,
     favoris integer default -1
 );
 
+create view AnnonceNonValider as
+select a.*, m.nom as marque, m2.nom as modele, v.nom as boitevitesse, c.nom as categorie, c2.nom as typecarburant, p.kilometrage as kilometrage, 
+p.anneesortie as anneesortie, p.couleur as couleur, p.nbrplace as nbrplace, p.prix as prix
+from annonce a join produit p on a.idproduit = p.id join marque m on p.idmarque = m.id join modele m2 on p.idmodele = m2.id join vitesse v on p.idvitesse = v.id 
+join categorie c on p.idcategorie = c.id join carburant c2 on p.idcarburant = c2.id where etat=-1;
 
+create view AnnonceValider as
+select a.*, m.nom as marque, m2.nom as modele, v.nom as boitevitesse, c.nom as categorie, c2.nom as typecarburant, p.kilometrage as kilometrage, 
+p.anneesortie as anneesortie, p.couleur as couleur, p.nbrplace as nbrplace, p.prix as prix
+from annonce a join produit p on a.idproduit = p.id join marque m on p.idmarque = m.id join modele m2 on p.idmodele = m2.id join vitesse v on p.idvitesse = v.id 
+join categorie c on p.idcategorie = c.id join carburant c2 on p.idcarburant = c2.id where etat=1;
+
+create view ListeAnnonce as
+select * from Annoncevalider where statut=-1;
+
+create view HistoriqueAnnonce as
+select * from annoncevalider where statut=1;
+
+create view AnnonceFavoris as
+select * from listeannonce where favoris=1 and statut=-1;

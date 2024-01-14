@@ -25,7 +25,7 @@ public class Token {
     public static final String keyToken = "Token22";
     
     @AnnotationField(attribut = "utilisateur")
-    int utilisateur;
+    String utilisateur;
     @AnnotationField(attribut = "token")
     String token;
     @AnnotationField(attribut = "dateExpiration")
@@ -34,17 +34,17 @@ public class Token {
     public Token() {
     }
 
-    public Token(int utilisateur, String token, Date dateExpiration) {
+    public Token(String utilisateur, String token, Date dateExpiration) {
         this.utilisateur = utilisateur;
         this.token = token;
         this.dateExpiration = dateExpiration;
     }
 
-    public int getUtilisateur() {
+    public String getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(int utilisateur) {
+    public void setUtilisateur(String utilisateur) {
         this.utilisateur = utilisateur;
     }
 
@@ -115,7 +115,7 @@ public class Token {
         }
     }
     
-    public String genererToken(int utilisateurId) throws Exception {
+    public String genererToken(String utilisateurId) throws Exception {
         Token tokenGenerer = new Token();
         long now = System.currentTimeMillis();
         int expire = (int) this.expiration/60/60/24;
@@ -130,9 +130,15 @@ public class Token {
     
     public boolean verifieToken(String token) throws Exception {
         boolean resultat = false;
-        Token tokenAdmin = readByToken(token);
-        if(tokenAdmin.getToken()!=null) {
-            resultat = true;
+        Token tokenAdmin = null;
+        try {
+            tokenAdmin = readByToken(token);
+            if(tokenAdmin.getToken()!=null) {
+                resultat = true;
+            }
+        }
+        catch(Exception exception) {
+            throw exception;
         }
         return resultat;
     }
