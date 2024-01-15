@@ -37,6 +37,11 @@
                     <artifactId>jjwt</artifactId>
                     <version>0.9.1</version> <!-- Version actuelle, vérifiez la dernière version -->
                 </dependency>
+                <dependency>
+                    <groupId>org.mongodb</groupId>
+                    <artifactId>mongodb-driver-sync</artifactId> <!-- Assurez-vous de vérifier la dernière version disponible -->
+                    <version>4.6.1</version>
+                </dependency>
 	</dependencies>
 
 	<build>

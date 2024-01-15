@@ -24,7 +24,6 @@ import services.springboot.ServiceElement;
  */
 @RestController
 public class ElementController {
-    
     ServiceElement s = new ServiceElement();
     
     @CrossOrigin(origins = "*")

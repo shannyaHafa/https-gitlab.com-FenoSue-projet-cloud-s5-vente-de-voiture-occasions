@@ -6,8 +6,11 @@
 package base.springboot;
 
 import classes.springboot.Annonce;
+import classes.springboot.Message;
 import classes.springboot.Produit;
+import com.mongodb.client.MongoDatabase;
 import connexion.Connexion;
+import connexion.ConnexionMongo;
 import java.sql.Connection;
 
 /**
@@ -21,7 +24,8 @@ public class NewMain {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        
+        Message m = new Message();
+        m.getListeMessage();
     }
     
 }

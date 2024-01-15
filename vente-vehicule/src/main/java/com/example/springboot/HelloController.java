@@ -13,15 +13,14 @@ import services.springboot.ServiceUtilisateur;
 
 @RestController
 public class HelloController {
-
     private Token token = new Token();
-    ServiceUtilisateur su = new ServiceUtilisateur();
+    ServiceUtilisateur s = new ServiceUtilisateur();
     
     /* CONNECTION */
     @CrossOrigin(origins = "*")
     @PostMapping("/Connection")
     public HttpRetour connection(@RequestBody Utilisateur user) throws Exception {
-        HttpRetour connection = su.connection(user.getLogin(), user.getPwd());
+        HttpRetour connection = s.connection(user.getLogin(), user.getPwd());
         return connection;
     }
     
@@ -30,7 +29,7 @@ public class HelloController {
     @GetMapping("/Deconnection")
     public HttpRetour deconnection(@RequestHeader(name = "Authorization") String token) throws Exception {
         String realToken = token.substring(7, token.length());
-        HttpRetour deconnection = su.deconnection(realToken);
+        HttpRetour deconnection = s.deconnection(realToken);
         return deconnection;
     }
 }
