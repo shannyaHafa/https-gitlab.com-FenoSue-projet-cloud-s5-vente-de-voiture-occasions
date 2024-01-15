@@ -101,4 +101,14 @@ public class AnnonceController {
         ResponseEntity<HttpRetour> listes = new ResponseEntity<>(retour, HttpStatus.OK);
         return listes;
     }
+    
+    @CrossOrigin(origins = "*")
+    @GetMapping("/Recherche")
+    public ResponseEntity<HttpRetour> recherche(@RequestParam String marque, @RequestParam String modele, @RequestParam String boiteVitesse, 
+            @RequestParam String categorie, @RequestParam String typeCarburant, @RequestParam String couleur, @RequestParam String prixMin, 
+            @RequestParam String prixMax) throws Exception {
+        HttpRetour retour = s.listeAnnonceValider(marque, modele, boiteVitesse, categorie, typeCarburant, couleur, prixMin, prixMax);
+        ResponseEntity<HttpRetour> listes = new ResponseEntity<>(retour, HttpStatus.OK);
+        return listes;
+    }
 }

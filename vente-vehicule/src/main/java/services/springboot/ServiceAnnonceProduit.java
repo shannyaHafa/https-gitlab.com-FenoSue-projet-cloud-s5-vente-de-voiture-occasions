@@ -193,4 +193,23 @@ public class ServiceAnnonceProduit {
         }
         return resultat;
     }
+    
+    public HttpRetour listeAnnonceValider(String marque, String modele, String boiteVitesse, String categorie, String typeCarburant,
+            String couleur, String prixMin, String prixMax) {
+        HttpRetour resultat = new HttpRetour();
+        DetailAnnonce[] listes = null;
+        try {
+            listes = av.listeAnnonceValider(marque, modele, boiteVitesse, categorie, typeCarburant, couleur, prixMin, prixMax);
+            if(listes.length!=0) {
+                resultat.setHttpRetour(resultat, 200, "Ok", listes);
+            }
+            else {
+                resultat.setHttpRetour(resultat, 300, "Aucune annonce correspondant à votre recherche", listes);
+            }
+        }
+        catch(Exception exception) {
+            resultat.setHttpRetour(resultat, 400, exception.getMessage(), null);
+        }
+        return resultat;
+    }
 }

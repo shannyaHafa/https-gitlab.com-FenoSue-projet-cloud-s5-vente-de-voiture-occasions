@@ -37,6 +37,9 @@ public class DetailAnnonce extends Annonce {
     @AnnotationField(attribut = "prix")
     double prix;
 
+    public DetailAnnonce() {
+    }
+
     public String getMarque() {
         return marque;
     }
@@ -156,6 +159,50 @@ public class DetailAnnonce extends Annonce {
             listes = (DetailAnnonce[]) dao().select("AnnonceFavoris", this, connection);
         }
         catch(Exception exception) {
+            throw exception;
+        }
+        return listes;
+    }
+    
+    public DetailAnnonce[] listeAnnonceValider(String marque, String modele, String boiteVitesse, String categorie, String typeCarburant,
+            String couleur, String prixMin, String prixMax) throws Exception {
+        DetailAnnonce[] listes = null;
+        String requette = " select * from ListeAnnonce where 1>0";
+        double min, max =0;
+        try(Connection connection = new Connexion().getConnection()) {
+            if(marque!=null && marque.equals("")==false) {
+                requette += " and marque like '%"+marque+"%'";
+            }
+            if(modele!=null && modele.equals("")==false) {
+                requette += " and modele like '%"+modele+"%'";
+            }
+            if(boiteVitesse!=null && boiteVitesse.equals("")==false) {
+                System.out.println("vitesse : '"+boiteVitesse+"'");
+                requette += " and boiteVitesse like '%"+boiteVitesse+"%'";
+            }
+            if(categorie!=null && categorie.equals("")==false) {
+                System.out.println("vitesse : '"+boiteVitesse+"'");
+                requette += " and categorie like '%"+categorie+"%'";
+            }
+            if(typeCarburant!=null && typeCarburant.equals("")==false) {
+                System.out.println("vitesse : '"+boiteVitesse+"'");
+                requette += " and typeCarburant like '%"+typeCarburant+"%'";
+            }
+            if(couleur!=null && couleur.equals("")==false) {
+                requette += " and couleur like '%"+couleur+"%'";
+            }
+            if(prixMin!=null && prixMin.equals("")==false) {
+                min = Double.parseDouble(prixMin);
+                requette += " and prix>="+min;
+            }
+            if(prixMax!=null && prixMax.equals("")==false) {
+                max = Double.parseDouble(prixMax);
+                requette += " and prix<="+max;
+            }
+            listes = (DetailAnnonce[]) dao().selectRequette(this, requette, connection);
+        }
+        catch(Exception exception) {
+            exception.printStackTrace();
             throw exception;
         }
         return listes;
