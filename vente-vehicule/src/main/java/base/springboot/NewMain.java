@@ -24,8 +24,7 @@ public class NewMain {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        Message m = new Message();
-        m.getListeMessage();
+        
     }
     
 }

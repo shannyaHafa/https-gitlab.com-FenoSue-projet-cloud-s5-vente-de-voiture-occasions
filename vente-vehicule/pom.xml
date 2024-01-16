@@ -42,6 +42,11 @@
                     <artifactId>mongodb-driver-sync</artifactId> <!-- Assurez-vous de vérifier la dernière version disponible -->
                     <version>4.6.1</version>
                 </dependency>
+                <dependency>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                    <version>2.12.5</version> <!-- Utilisez la dernière version disponible -->
+                </dependency>
 	</dependencies>
 
 	<build>
