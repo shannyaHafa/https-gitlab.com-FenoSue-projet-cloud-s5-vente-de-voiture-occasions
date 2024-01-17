@@ -202,9 +202,25 @@ public class DetailAnnonce extends Annonce {
             listes = (DetailAnnonce[]) dao().selectRequette(this, requette, connection);
         }
         catch(Exception exception) {
-            exception.printStackTrace();
             throw exception;
         }
         return listes;
+    }
+    
+    public DetailAnnonce getById(String liste, String idAnnonce) throws Exception {
+        DetailAnnonce detailAnnonce = new DetailAnnonce();
+        DetailAnnonce[] listes = null;
+        DetailAnnonce annonce = new DetailAnnonce();
+        try(Connection connection = new Connexion().getConnection()) {
+            annonce.setId(idAnnonce);
+            listes = (DetailAnnonce[]) dao().select(liste, this, connection);
+            for(DetailAnnonce d : listes) {
+                detailAnnonce = d;
+            }
+        }
+        catch(Exception exception) {
+            throw exception;
+        }
+        return detailAnnonce;
     }
 }

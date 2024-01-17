@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class ServiceAnnonceProduit {
     Produit p = new Produit();
     Annonce a = new Annonce();
-    DetailAnnonce av = new DetailAnnonce();
+    DetailAnnonce da = new DetailAnnonce();
     
     public HttpRetour ajoutAnnonceProduit(String token, String idMarque, String idModele, String matricule, String idVitesse, String idCategorie, 
             String idCarburant, String kilometrage, String anneeSortie, String couleur, String nbrPlace, String prix, String description) 
@@ -146,7 +146,7 @@ public class ServiceAnnonceProduit {
         HttpRetour resultat = new HttpRetour();
         DetailAnnonce[] listes = null;
         try {
-            listes = av.listeAnnonceNonValider();
+            listes = da.listeAnnonceNonValider();
             resultat.setHttpRetour(resultat, 200, "Ok", listes);
         }
         catch(Exception exception) {
@@ -159,7 +159,7 @@ public class ServiceAnnonceProduit {
         HttpRetour resultat = new HttpRetour();
         DetailAnnonce[] listes = null;
         try {
-            listes = av.listeAnnonceValider();
+            listes = da.listeAnnonceValider();
             resultat.setHttpRetour(resultat, 200, "Ok", listes);
         }
         catch(Exception exception) {
@@ -172,7 +172,7 @@ public class ServiceAnnonceProduit {
         HttpRetour resultat = new HttpRetour();
         DetailAnnonce[] listes = null;
         try {
-            listes = av.historiqueAnnonce();
+            listes = da.historiqueAnnonce();
             resultat.setHttpRetour(resultat, 200, "Ok", listes);
         }
         catch(Exception exception) {
@@ -185,7 +185,7 @@ public class ServiceAnnonceProduit {
         HttpRetour resultat = new HttpRetour();
         DetailAnnonce[] listes = null;
         try {
-            listes = av.listeAnnonceFavoris();
+            listes = da.listeAnnonceFavoris();
             resultat.setHttpRetour(resultat, 200, "Ok", listes);
         }
         catch(Exception exception) {
@@ -199,13 +199,28 @@ public class ServiceAnnonceProduit {
         HttpRetour resultat = new HttpRetour();
         DetailAnnonce[] listes = null;
         try {
-            listes = av.listeAnnonceValider(marque, modele, boiteVitesse, categorie, typeCarburant, couleur, prixMin, prixMax);
+            listes = da.listeAnnonceValider(marque, modele, boiteVitesse, categorie, typeCarburant, couleur, prixMin, prixMax);
             if(listes.length!=0) {
                 resultat.setHttpRetour(resultat, 200, "Ok", listes);
             }
             else {
                 resultat.setHttpRetour(resultat, 300, "Aucune annonce correspondant à votre recherche", listes);
             }
+        }
+        catch(Exception exception) {
+            resultat.setHttpRetour(resultat, 400, exception.getMessage(), null);
+        }
+        return resultat;
+    }
+    
+    public HttpRetour getDetailAnnonce(String liste, String idAnnonce) {
+        HttpRetour resultat = new HttpRetour();
+        DetailAnnonce detailAnnonce = new DetailAnnonce();
+        DetailAnnonce[] data = new DetailAnnonce[1];
+        try {
+            detailAnnonce = da.getById(liste, idAnnonce);
+            data[0] = detailAnnonce;
+            resultat.setHttpRetour(resultat, 200, "ok", data);
         }
         catch(Exception exception) {
             resultat.setHttpRetour(resultat, 400, exception.getMessage(), null);
