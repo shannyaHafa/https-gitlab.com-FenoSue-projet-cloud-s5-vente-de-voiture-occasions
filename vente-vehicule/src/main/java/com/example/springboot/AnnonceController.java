@@ -111,4 +111,12 @@ public class AnnonceController {
         ResponseEntity<HttpRetour> listes = new ResponseEntity<>(retour, HttpStatus.OK);
         return listes;
     }
+    
+    @CrossOrigin(origins = "*")
+    @GetMapping("/DetailAnnonce")
+    public ResponseEntity<HttpRetour> getDetailAnnonce(@RequestParam String liste, @RequestParam String idAnnonce) throws Exception {
+        HttpRetour retour = s.getDetailAnnonce(liste, idAnnonce);
+        ResponseEntity<HttpRetour> detail = new ResponseEntity<>(retour, HttpStatus.OK);
+        return detail;
+    }
 }
